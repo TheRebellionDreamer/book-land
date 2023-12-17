@@ -23,6 +23,18 @@ module.exports = {
     },
     { value: "test", name: "test:      Добавление тестов" },
   ],
+
+  // Область. Она характеризует фрагмент кода, которую затронули изменения
+  scopes: [
+    { name: "dependency" },
+    { name: "app" },
+    { name: "pages" },
+    { name: "widgets" },
+    { name: "features" },
+    { name: "entities" },
+    { name: "shared" },
+  ],
+
   messages: {
     type: "Какие изменения вы вносите?",
     scope: "\nВыберите ОБЛАСТЬ, которую вы изменили (опционально):",
@@ -34,6 +46,7 @@ module.exports = {
       "Место для мета данных (тикетов, ссылок и остального). Например: SECRETMRKT-700, SECRETMRKT-800:\n",
     confirmCommit: "Вас устраивает получившийся коммит?",
   },
+
   allowCustomScopes: true,
   footerPrefix: "МЕТА ДАННЫЕ:",
   subjectLimit: 72,
