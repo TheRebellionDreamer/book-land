@@ -27,6 +27,7 @@ module.exports = {
   // Область. Она характеризует фрагмент кода, которую затронули изменения
   scopes: [
     { name: "dependency" },
+    { name: "project" },
     { name: "app" },
     { name: "pages" },
     { name: "widgets" },
@@ -48,6 +49,7 @@ module.exports = {
   },
 
   allowCustomScopes: true,
+  allowBreakingChanges: false,
   footerPrefix: "МЕТА ДАННЫЕ:",
   subjectLimit: 72,
 };
