@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(uuid())
+  email        String
+  passwordHash String
+  role         String
+  cart         Cart?
+  profile      Profile?
+  orders       Order[]
+  favorites    Favorite[]
+}
+
+model Cart {
+  id           String @id @default(uuid())
+  summaryCoast Float
+  goods        Book[]
+  userId       String @unique
+  user         User   @relation(fields: [userId], references: [id])
+}
+
+model Order {
+  id            String @id @default(uuid())
+  status        String
+  summaryCoast  Float
+  recipientName String
+  items         Book[]
+  userId        String
+  user          User   @relation(fields: [userId], references: [id])
+}
+
+model Book {
+  id              String     @id @default(uuid())
+  title           String
+  genre           String
+  description     String
+  author          String
+  publicationYear String
+  price           Float
+  isbn            String
+  images          Image[]
+  pages           Int
+  weight          Float
+  height          Float
+  width           Float
+  thickness       Float
+  discount        Float?
+  cart            Cart?      @relation(fields: [cartId], references: [id])
+  cartId          String?
+  order           Order?     @relation(fields: [orderId], references: [id])
+  orderId         String?
+  favorite        Favorite[]
+}
+
+model Image {
+  id     String @id @default(uuid())
+  url    String
+  bookId String
+  book   Book   @relation(fields: [bookId], references: [id])
+}
+
+model Profile {
+  id             String @id @default(uuid())
+  firstName      String
+  lastName       String
+  age            Int
+  city           String
+  address        String
+  pickUpLocation String
+  userId         String @unique
+  user           User   @relation(fields: [userId], references: [id])
+}
+
+model Favorite {
+  id     String @id @default(uuid())
+  userId String
+  bookId String
+  book   Book   @relation(fields: [bookId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Post {
+  id          String @id @default(uuid())
+  title       String
+  description String
+  createdAt   String
+}
